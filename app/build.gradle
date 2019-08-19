@@ -21,6 +21,12 @@ android {
         }
     }
 
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
+
     androidExtensions {
         experimental = true
     }
