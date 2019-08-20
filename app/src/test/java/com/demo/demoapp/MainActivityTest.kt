@@ -28,7 +28,7 @@ class MainActivityTest {
     }
 
     @Test
-    fun clickingLogin_shouldStartLoginActivity() {
+    fun clickingLogin_shouldStartSearchActivity() {
         mainActivity.findViewById<ImageView>(R.id.imgSearch).performClick()
 
         val expectedIntent = Intent(mainActivity, SearchActivity::class.java)

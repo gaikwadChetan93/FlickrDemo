@@ -38,6 +38,7 @@ class MyViewModel : ViewModel() {
         flickrService.getPhotos(tag).enqueue(object : Callback<FlickrResponse> {
             override fun onFailure(call: Call<FlickrResponse>, t: Throwable) {
                 Log.d("error", t.message)
+                photos.value = emptyList()
             }
 
             override fun onResponse(call: Call<FlickrResponse>, response: Response<FlickrResponse>) {

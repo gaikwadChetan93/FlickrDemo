@@ -1,18 +1,21 @@
 package com.demo.demoapp
 
-import android.support.test.InstrumentationRegistry
+import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso
+import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions
+import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
-
+import org.hamcrest.Matchers.allOf
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-
-import org.junit.Assert.*
-import org.junit.Rule
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -30,13 +33,6 @@ class ExampleInstrumentedTest {
     )
 
     @Test
-    fun useAppContext() {
-        // Context of the app under test.
-        val appContext = InstrumentationRegistry.getTargetContext()
-        assertEquals("com.demo.demoapp", appContext.packageName)
-    }
-
-    @Test
     fun clickingSearch_shouldReturnValidResult() {
 
         Espresso.onView(ViewMatchers.withId(R.id.imgSearch))
@@ -51,6 +47,53 @@ class ExampleInstrumentedTest {
         Espresso.onView(ViewMatchers.withId(R.id.txtTag))
             .check(ViewAssertions.matches(ViewMatchers.withText("Cat")))
 
+    }
+
+    @Test
+    fun clickingSearch_searchingTag_shouldShowValidResultOnList() {
+
+        Espresso.onView(ViewMatchers.withId(R.id.imgSearch))
+            .perform(ViewActions.click())
+
+        Espresso.onView(ViewMatchers.withId(R.id.edtSearch))
+            .perform(ViewActions.typeText("Cat"))
+
+        Espresso.onView(ViewMatchers.withId(R.id.btnSearch))
+            .perform(ViewActions.click())
+
+        Espresso.onView(ViewMatchers.withId(R.id.txtTag))
+            .check(ViewAssertions.matches(ViewMatchers.withText("Cat")))
+
+        Thread.sleep(5000)
+
+        onView(withId(R.id.photoList))
+            .check(matches(hasDescendant(withText("The cat"))))
+    }
+
+    @Test
+    fun clickingSearch_searchingTag_ClickPhoto_ShouldShowValidDetails() {
+
+        Espresso.onView(ViewMatchers.withId(R.id.imgSearch))
+            .perform(ViewActions.click())
+
+        Espresso.onView(ViewMatchers.withId(R.id.edtSearch))
+            .perform(ViewActions.typeText("Cat"))
+
+        Espresso.onView(ViewMatchers.withId(R.id.btnSearch))
+            .perform(ViewActions.click())
+
+        Espresso.onView(ViewMatchers.withId(R.id.txtTag))
+            .check(ViewAssertions.matches(ViewMatchers.withText("Cat")))
+
+        Thread.sleep(5000)
+
+        onView(withId(R.id.photoList))
+            .check(matches(hasDescendant(withText("The cat"))))
+
+        onView(allOf(withId(R.id.photoList), isDisplayed())).perform(
+            RecyclerViewActions
+                .actionOnItem<RecyclerView.ViewHolder>(hasDescendant(withText("The cat")), click())
+        )
 
     }
 }
