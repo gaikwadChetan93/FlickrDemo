@@ -2,7 +2,7 @@ package com.demo.demoapp
 
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso
-import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.Espresso.*
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions
@@ -23,7 +23,7 @@ import org.junit.runner.RunWith
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 @RunWith(AndroidJUnit4::class)
-class ExampleInstrumentedTest {
+class MainActivityInstrumentedTest {
 
     @get:Rule
     var activityRule: ActivityTestRule<MainActivity> = ActivityTestRule(
@@ -35,16 +35,16 @@ class ExampleInstrumentedTest {
     @Test
     fun clickingSearch_shouldReturnValidResult() {
 
-        Espresso.onView(ViewMatchers.withId(R.id.imgSearch))
+        onView(withId(R.id.imgSearch))
             .perform(ViewActions.click())
 
-        Espresso.onView(ViewMatchers.withId(R.id.edtSearch))
+        onView(withId(R.id.edtSearch))
             .perform(ViewActions.typeText("Cat"))
 
-        Espresso.onView(ViewMatchers.withId(R.id.btnSearch))
+        onView(withId(R.id.btnSearch))
             .perform(ViewActions.click())
 
-        Espresso.onView(ViewMatchers.withId(R.id.txtTag))
+        onView(withId(R.id.txtTag))
             .check(ViewAssertions.matches(ViewMatchers.withText("Cat")))
 
     }
@@ -52,16 +52,16 @@ class ExampleInstrumentedTest {
     @Test
     fun clickingSearch_searchingTag_shouldShowValidResultOnList() {
 
-        Espresso.onView(ViewMatchers.withId(R.id.imgSearch))
+        onView(withId(R.id.imgSearch))
             .perform(ViewActions.click())
 
-        Espresso.onView(ViewMatchers.withId(R.id.edtSearch))
+        onView(withId(R.id.edtSearch))
             .perform(ViewActions.typeText("Cat"))
 
-        Espresso.onView(ViewMatchers.withId(R.id.btnSearch))
+        onView(withId(R.id.btnSearch))
             .perform(ViewActions.click())
 
-        Espresso.onView(ViewMatchers.withId(R.id.txtTag))
+        onView(withId(R.id.txtTag))
             .check(ViewAssertions.matches(ViewMatchers.withText("Cat")))
 
         Thread.sleep(5000)
@@ -73,16 +73,16 @@ class ExampleInstrumentedTest {
     @Test
     fun clickingSearch_searchingTag_ClickPhoto_ShouldShowValidDetails() {
 
-        Espresso.onView(ViewMatchers.withId(R.id.imgSearch))
+        onView(withId(R.id.imgSearch))
             .perform(ViewActions.click())
 
-        Espresso.onView(ViewMatchers.withId(R.id.edtSearch))
+        onView(withId(R.id.edtSearch))
             .perform(ViewActions.typeText("Cat"))
 
-        Espresso.onView(ViewMatchers.withId(R.id.btnSearch))
+        onView(withId(R.id.btnSearch))
             .perform(ViewActions.click())
 
-        Espresso.onView(ViewMatchers.withId(R.id.txtTag))
+        onView(withId(R.id.txtTag))
             .check(ViewAssertions.matches(ViewMatchers.withText("Cat")))
 
         Thread.sleep(5000)
